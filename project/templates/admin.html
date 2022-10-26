@@ -6,9 +6,18 @@
 <h1 class="title">
   Welcome, {{ name }}!
 </h1>
-{% for filename in files %}
-{% set download_link = "/download/" + filename %}
-{% set download_link = download_link | urlencode %}
-<a href={{download_link}}>{{ filename }}</a>
-{% endfor %}
+# make two rows of links
+<div class="columns">
+  <div class="column">
+    {% for filename in files %}
+    {% set download_link = "/download/" + filename %}
+    {% set download_link = download_link | urlencode %}
+      <a href={{download_link}}>{{ filename }}</a>
+    {% endfor %}
+  </div>
+  <div class="column">
+    {% for filename in files %}
+      <p>{{ filename }}</p>
+    {% endfor %}
+  </div>
 {% endblock %}
