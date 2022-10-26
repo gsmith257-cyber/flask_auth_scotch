@@ -19,9 +19,9 @@ def contact():
     return render_template('contact.html')
 
 @main.route('/manufacturing')
-def index():
+def manufacturing():
     return render_template('manufacturing.html')
 
 @main.route('/solar')
-def index():
+def solar():
     return render_template('solar.html')
