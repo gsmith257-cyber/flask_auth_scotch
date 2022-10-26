@@ -8,6 +8,8 @@ COPY requirements.txt ./
 
 RUN pip install -r requirements.txt
 
+ENV FLASK_APP=project
+
 # Bundle app source
 COPY . .
 
