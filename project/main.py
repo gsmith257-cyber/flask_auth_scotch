@@ -43,9 +43,9 @@ def download(filename):
         files = ftp_server.nlst()
         if filename in files:
             upload_folder = "uploads/"
-            with open(os.path.join(os.getcwd(), upload_folder, filename), "wb") as file:
+            with open(os.path.join(upload_folder, filename), "wb") as file:
                 ftp_server.retrbinary('RETR ' + filename, file.write)
-            return send_file(os.path.join(upload_folder, filename), as_attachment=True)
+            return send_file(os.path.join(os.getcwd(), "..", upload_folder, filename), as_attachment=True)
         else:
             return redirect(url_for('main.profile'))
     else:
