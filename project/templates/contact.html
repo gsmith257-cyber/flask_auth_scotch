@@ -11,9 +11,13 @@
   <div></div>
   <p>Phone: 1-800-123-4567</p>
   <p>Email:
-    <a href="mailto:test@test.com"></a>
+    <a href="mailto:test@test.com">test@test.com</a>
   </p>
-
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }}
+    </div>
     <form action="/contact" method="post" enctype="multipart/form-data">
       <div class="field">
         <label class="label">Name</label>
