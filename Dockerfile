@@ -14,4 +14,4 @@ RUN export FLASK_APP=project
 COPY . .
 
 EXPOSE 80
-CMD [ "export", "FLASK_APP=project", "&", "flask", "run","--host","0.0.0.0","--port","5000"]
+CMD [ "flask", "run", "--app", "project", "--host","0.0.0.0","--port","5000"]
