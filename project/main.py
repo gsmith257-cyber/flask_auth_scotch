@@ -25,8 +25,15 @@ def profile():
     if current_user.name == 'admin':
         #get list of files
         ftp_server.cwd("/")
-        #get list of files, excluding directories
-        files = [f for f in ftp_server.nlst() if not re.match(r'^d', ftp_server.sendcmd('TYPE ' + f))]
+        #get list of files
+        files = []
+        allThings = ftp_server.nlst()
+        for file in allThings:
+            try:
+                ftp_server.cwd(file)
+                ftp_server.cwd('../')
+            except:
+                files += [file]
         return render_template('admin.html', name=current_user.name, files=files)
 
     else:
