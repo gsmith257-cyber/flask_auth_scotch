@@ -17,6 +17,4 @@ RUN python -m pip install -r requirements.txt
 WORKDIR /app
 COPY . /app
 
-ENTRYPOINT [ "python" ]
-
-CMD ["__init__.py"]
+CMD ["flask", "run","--host","0.0.0.0","--port","5000"]
