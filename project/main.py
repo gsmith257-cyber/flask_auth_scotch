@@ -12,15 +12,15 @@ import imaplib
 import email
 
 HOSTNAME = "10.0.40.73"
-USERNAME = "anonymous"
-PASSWORD = "anonymous"
+USERNAME = "blueteam"
+PASSWORD = "Blueteam2022"
 ftp_server = ftplib.FTP(HOSTNAME, USERNAME, PASSWORD)
 ftp_server.encoding = "utf-8"
 
 #set this up
-ORG_EMAIL = "@localhost.com" 
-FROM_EMAIL = "your_email" + ORG_EMAIL 
-FROM_PWD = "your-password" 
+ORG_EMAIL = "@sunpartners.local" 
+FROM_EMAIL = "admin" + ORG_EMAIL 
+FROM_PWD = "Blueteam2022" 
 SMTP_SERVER = "10.0.40.73" 
 SMTP_PORT = 25
 
@@ -34,7 +34,6 @@ def index():
 @login_required
 def profile():
     if current_user.name == 'admin':
-        """
         mail = imaplib.IMAP4(SMTP_SERVER)
         mail.login(FROM_EMAIL,FROM_PWD)
         mail.select('inbox')
@@ -53,7 +52,7 @@ def profile():
                     email_subject = msg['subject']
                     email_from = msg['from']
                     flash('From : ' + email_from + '\n')
-                    flash('Subject : ' + email_subject + '\n')"""
+                    flash('Subject : ' + email_subject + '\n')
         #get list of files
         ftp_server.cwd("/")
         #get list of files
