@@ -1,10 +1,11 @@
 # main.py
 
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 import os
 import re
 import ftplib
+import requests
 
 HOSTNAME = "10.0.40.73"
 USERNAME = "blueteam"
@@ -33,18 +34,18 @@ def contact():
 
 @main.route('/contact', methods=['POST'])
 def contact_post():
-    file = request.form.get('file')
-    #get the file name
+    #get the file from the form
+    file = request.files['file']
     if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
     #prevent LFI
-    if re.search(r'(\.\.)|[/\\]', name):
+    if re.search(r'(\.\.)|[/\\]', file.filename):
         flash('Invalid name')
         return redirect(url_for('main.contact'))
     else:
         #save file
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+        file.save(file.filename)
         #upload file
         ftp_server.storbinary('STOR ' + file.filename, open(file.filename, 'rb'))
         return redirect(url_for('main.contact'))
