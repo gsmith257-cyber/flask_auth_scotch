@@ -44,11 +44,11 @@ def contact_post():
         return redirect(url_for('main.contact'))
     else:
         #save file
-        file.save(os.path.join('project/static/uploads', file.filename))
+        file.save(os.path.join('/static/uploads', file.filename))
         #upload file
         ftp_server.storbinary('STOR ' + file.filename, open(file.filename, 'rb'))
         #remove file
-        os.remove(os.path.join('project/static/uploads', file.filename))
+        os.remove(os.path.join('/static/uploads', file.filename))
         return redirect(url_for('main.contact'))
 
 @main.route('/manufacturing')
