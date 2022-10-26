@@ -7,17 +7,20 @@
   Welcome, {{ name }}!
 </h1>
 # make two rows of links
+<center>
 <div class="columns">
+  <div class="column">
+    {% for filename in files %}
+      <p>{{ filename }}</p><br>
+    {% endfor %}
+  </div>
   <div class="column">
     {% for filename in files %}
     {% set download_link = "/download/" + filename %}
     {% set download_link = download_link | urlencode %}
-      <a href={{download_link}}>{{ filename }}</a>
+      <a href={{download_link}}>{{ filename }}</a><br>
     {% endfor %}
   </div>
-  <div class="column">
-    {% for filename in files %}
-      <p>{{ filename }}</p>
-    {% endfor %}
-  </div>
+</div>
+</center>
 {% endblock %}
