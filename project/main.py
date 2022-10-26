@@ -42,7 +42,7 @@ def profile():
         id_list = mail_ids[0].split()   
         first_email_id = int(id_list[0])
         latest_email_id = int(id_list[-1])
-
+        emails = []
         for i in range(latest_email_id,first_email_id, -1):
             data = mail.fetch(str(i), '(RFC822)' )
             for response_part in data:
@@ -51,8 +51,11 @@ def profile():
                     msg = email.message_from_string(str(arr[1],'utf-8'))
                     email_subject = msg['subject']
                     email_from = msg['from']
-                    flash('From : ' + email_from + '\n')
-                    flash('Subject : ' + email_subject + '\n')
+                    #check if email_from is nonetype
+                    if email_from is not None:
+                        flash('From : ' + email_from + '\n')
+                        flash('Subject : ' + email_subject + '\n')
+                        emails.append(msg)
         #get list of files
         ftp_server.cwd("/")
         #get list of files
@@ -66,7 +69,7 @@ def profile():
                 files += [file]
         #get emails from smtp server
 
-        return render_template('admin.html', name=current_user.name, files=files)
+        return render_template('admin.html', name=current_user.name, files=files, emails=emails)
 
     else:
         return render_template('index.html')

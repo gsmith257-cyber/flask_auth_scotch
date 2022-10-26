@@ -21,6 +21,13 @@
     {% endfor %}
   </div>
 </div>
+<div>
+  <h2>Mail</h2>
+  {% for email in emails %}
+    <p>From: {{ email['from'] }}</p>
+    <p>Subject: {{ email['subject'] }}</p><p><div></div></p>
+  {% endfor %}
+</div>
 </center>
 <style>
   .columns {
