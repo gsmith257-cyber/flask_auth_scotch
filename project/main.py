@@ -31,7 +31,7 @@ def profile():
 def contact():
     return render_template('contact.html')
 
-@auth.route('/contact', methods=['POST'])
+@main.route('/contact', methods=['POST'])
 def contact_post():
     file = request.form.get('file')
     #get the file name
