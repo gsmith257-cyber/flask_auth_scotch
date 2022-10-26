@@ -14,11 +14,11 @@ def login():
 
 @auth.route('/login', methods=['POST'])
 def login_post():
-    email = request.form.get('email')
+    username = request.form.get('username')
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(email=username).first()
 
     # check if user actually exists
     # take the user supplied password, hash it, and compare it to the hashed password in database
