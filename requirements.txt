@@ -3,7 +3,5 @@ flask_sqlalchemy
 flask_login
 flask_mail
 Werkzeug
-smtplib
-imaplib
 itsdangerous
 Jinja2
