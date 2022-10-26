@@ -1,17 +1,28 @@
 # main.py
 
+import imaplib
 from flask import Blueprint, render_template, request, redirect, url_for, flash, send_file
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 import os
 import re
 import ftplib
+import smtplib
+import imaplib
+import email
 
 HOSTNAME = "10.0.40.73"
 USERNAME = "anonymous"
 PASSWORD = "anonymous"
 ftp_server = ftplib.FTP(HOSTNAME, USERNAME, PASSWORD)
 ftp_server.encoding = "utf-8"
+
+#set this up
+ORG_EMAIL = "@localhost.com" 
+FROM_EMAIL = "your_email" + ORG_EMAIL 
+FROM_PWD = "your-password" 
+SMTP_SERVER = "10.0.40.73" 
+SMTP_PORT = 25
 
 main = Blueprint('main', __name__)
 
@@ -23,6 +34,26 @@ def index():
 @login_required
 def profile():
     if current_user.name == 'admin':
+        """
+        mail = imaplib.IMAP4(SMTP_SERVER)
+        mail.login(FROM_EMAIL,FROM_PWD)
+        mail.select('inbox')
+        data = mail.search(None, 'ALL')
+        mail_ids = data[1]
+        id_list = mail_ids[0].split()   
+        first_email_id = int(id_list[0])
+        latest_email_id = int(id_list[-1])
+
+        for i in range(latest_email_id,first_email_id, -1):
+            data = mail.fetch(str(i), '(RFC822)' )
+            for response_part in data:
+                arr = response_part[0]
+                if isinstance(arr, tuple):
+                    msg = email.message_from_string(str(arr[1],'utf-8'))
+                    email_subject = msg['subject']
+                    email_from = msg['from']
+                    flash('From : ' + email_from + '\n')
+                    flash('Subject : ' + email_subject + '\n')"""
         #get list of files
         ftp_server.cwd("/")
         #get list of files
@@ -34,6 +65,8 @@ def profile():
                 ftp_server.cwd('../')
             except:
                 files += [file]
+        #get emails from smtp server
+
         return render_template('admin.html', name=current_user.name, files=files)
 
     else:
