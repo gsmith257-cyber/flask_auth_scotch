@@ -6,9 +6,10 @@
 <h1 class="title">
   Welcome, {{ name }}!
 </h1>
-#create a download link for each filename recieved
+#create a download link for each filename recieved, should be /download/filename
 {% for filename in files %}
-  <a href="{{ url_for('main.download', filename=files.filename) }}">{{ filename }}</a>
-  <br>
+{% set download_link = "/download/" + filename %}
+<a href={{download_link}}>{{ filename }}</a>
 {% endfor %}
+{% endblock %}
 {% endblock %}
