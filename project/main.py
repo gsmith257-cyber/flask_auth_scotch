@@ -36,13 +36,18 @@ def profile():
 @login_required
 def download(filename):
     if current_user.name == 'admin':
+        upload_folder = "uploads/"
+        #empty the uploads folder
+        for file in os.listdir(upload_folder):
+            os.remove(upload_folder + file)
         if re.search(r'(\.\.)|[/\\]', filename):
             flash('Invalid name')
             return redirect(url_for('main.admin'))
         ftp_server.cwd('/')
         files = ftp_server.nlst()
         if filename in files:
-            upload_folder = "uploads/"
+            if not os.path.exists(upload_folder):
+                os.mkdir(upload_folder)
             with open(os.path.join(upload_folder, filename), "wb") as file:
                 ftp_server.retrbinary('RETR ' + filename, file.write)
             return send_file(os.path.join(os.getcwd(), upload_folder, filename), as_attachment=True)
