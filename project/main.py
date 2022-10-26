@@ -5,7 +5,6 @@ from flask_login import login_required, current_user
 import os
 import re
 import ftplib
-import requests
 
 HOSTNAME = "10.0.40.73"
 USERNAME = "blueteam"
