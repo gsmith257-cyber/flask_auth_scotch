@@ -4,4 +4,53 @@
 <h1 class="title">
   Contact Us
 </h1>
+
+#put paragraph on left side of page
+<div class="column is-4 is-offset-4">
+  <h3>Contact Information</h3>
+  <div></div>
+  <p>Welcome to Sole-Zon-Solis Energy, we are happy to answer any questions you might have about our services. Please fill out the contact us form and we will get back to you shortly!</p>
+  <div></div>
+  <p>Phone: 1-800-123-4567</p>
+  <p>Email:
+    <a href="mailto:test@test.com"></a>
+  </p>
+</div>
+<div class="columns">
+  <div class="column is-half">
+    <form action="/contact" method="post">
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Name" name="name">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <input class="input" type="email" placeholder="Email" name="email">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Phone Number</label>
+        <div class="control">
+          <input class="input" type="phone" placeholder="Phone" name="phone">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">File</label>
+        <div class="control">
+          <input class="input" type="file" name="file">
+        </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-link">Submit</button>
+        </div>
+        <div class="control">
+          <button class="button is-link is-light">Cancel</button>
+        </div>
+      </div>
+    </form>
+    </div>
+  </div>
 {% endblock %}
