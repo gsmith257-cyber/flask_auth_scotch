@@ -3,7 +3,6 @@ flask_sqlalchemy
 flask_login
 flask_mail
 Werkzeug
-ftplib
 smtplib
 imaplib
 itsdangerous
