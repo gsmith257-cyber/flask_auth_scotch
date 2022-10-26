@@ -35,7 +35,7 @@ def index():
 def profile():
     if current_user.name == 'admin':
         mail = imaplib.IMAP4(SMTP_SERVER)
-        mail.login("admin",FROM_PWD)
+        mail.login(FROM_EMAIL,FROM_PWD)
         mail.select('inbox')
         data = mail.search(None, 'ALL')
         mail_ids = data[1]
