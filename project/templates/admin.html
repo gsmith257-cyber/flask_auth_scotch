@@ -18,7 +18,7 @@
     {% for filename in files %}
     {% set download_link = "/download/" + filename %}
     {% set download_link = download_link | urlencode %}
-      <a href={{download_link}}>{{ filename }}</a><br>
+      <a href={{download_link}}>Download</a><p><br></p>
     {% endfor %}
   </div>
 </div>
