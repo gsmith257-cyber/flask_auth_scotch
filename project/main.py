@@ -48,8 +48,8 @@ def contact_post():
             os.mkdir(upload_folder)
         file.save(os.path.join(upload_folder, file.filename))
         #upload file
-        ftp_server.storbinary('STOR ' + file.filename, open(file.filename, 'rb'))
-        flash(ftp_server.dir()) # ------------remove this----------------
+        with open(os.path.join(upload_folder, file.filename), 'rb') as f:
+            ftp_server.storbinary('STOR ' + file.filename, f)
         #remove file
         os.remove(os.path.join(upload_folder, file.filename))
         return redirect(url_for('main.contact'))
