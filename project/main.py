@@ -81,8 +81,8 @@ def download(filename):
     if current_user.name == 'admin':
         upload_folder = "uploads/"
         #empty the uploads folder
-        for file in os.listdir(upload_folder):
-            os.remove(upload_folder + file)
+        for file in os.listdir(os.path.join(os.getcwd(), upload_folder)):
+            os.remove(os.path.join(os.getcwd(), upload_folder, file))
         if re.search(r'(\.\.)|[/\\]', filename):
             flash('Invalid name')
             return redirect(url_for('main.admin'))
