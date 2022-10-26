@@ -6,9 +6,9 @@
 <h1 class="title">
   Welcome, {{ name }}!
 </h1>
-#create a download link for each filename recieved, should be /download/filename
 {% for filename in files %}
 {% set download_link = "/download/" + filename %}
+{% set download_link = download_link | urlencode %}
 <a href={{download_link}}>{{ filename }}</a>
 {% endfor %}
 {% endblock %}

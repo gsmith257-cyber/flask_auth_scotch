@@ -1,6 +1,6 @@
 # main.py
 
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, send_file
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 import os
@@ -43,7 +43,7 @@ def download(filename):
         files = ftp_server.nlst()
         if filename in files:
             ftp_server.retrbinary('RETR ' + filename, open(filename, 'wb').write)
-            return redirect(url_for('main.profile'))
+            return send_file(filename, as_attachment=True)
         else:
             return redirect(url_for('main.profile'))
     else:
