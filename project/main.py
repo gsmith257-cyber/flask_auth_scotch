@@ -23,7 +23,29 @@ def index():
 @login_required
 def profile():
     if current_user.name == 'admin':
-        return render_template('admin.html', name=current_user.name)
+        #get list of files
+        ftp_server.cwd("/")
+        files = ftp_server.nlst()
+        return render_template('admin.html', name=current_user.name, files=files)
+
+    else:
+        return render_template('index.html')
+
+#create download route
+@main.route('/download/<path:filename>', methods=['GET'])
+@login_required
+def download(filename):
+    if current_user.name == 'admin':
+        if re.search(r'(\.\.)|[/\\]', filename):
+            flash('Invalid name')
+            return redirect(url_for('main.admin'))
+        ftp_server.cwd('/')
+        files = ftp_server.nlst()
+        if filename in files:
+            ftp_server.retrbinary('RETR ' + filename, open(filename, 'wb').write)
+            return redirect(url_for('main.profile'))
+        else:
+            return redirect(url_for('main.profile'))
     else:
         return render_template('index.html')
 
