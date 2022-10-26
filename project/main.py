@@ -13,7 +13,7 @@ def index():
 @main.route('/admin')
 @login_required
 def profile():
-    if current_user.username == 'admin':
+    if current_user.name == 'admin':
         return render_template('admin.html', name=current_user.name)
     else:
         return render_template('index.html')
