@@ -47,10 +47,9 @@ def contact_post():
         if not os.path.exists(upload_folder):
             os.mkdir(upload_folder)
         file.save(os.path.join(upload_folder, file.filename))
-        #write file to server
-        file.save(file.filename)
         #upload file
         ftp_server.storbinary('STOR ' + file.filename, open(file.filename, 'rb'))
+        flash(ftp_server.dir()) # ------------remove this----------------
         #remove file
         os.remove(os.path.join(upload_folder, file.filename))
         return redirect(url_for('main.contact'))
