@@ -17,5 +17,6 @@ RUN python -m pip install -r requirements.txt
 WORKDIR /app
 COPY . /app
 
-ENTRYPOINT ["python", "-m", "venv", "auth", "&", "source", "auth/bin/activate"]
-CMD ["flask", "run"]
+ENTRYPOINT [ "python" ]
+
+CMD ["__init__.py"]
