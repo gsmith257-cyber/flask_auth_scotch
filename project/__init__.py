@@ -38,9 +38,6 @@ def create_app():
     with app.app_context():
         db.create_all()
 
-    port = int(os.environ.get('PORT', 80))
-    app.run(debug=False, host='0.0.0.0', port=port)
-
     return app
 
 if __name__ == "__main__":
