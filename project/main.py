@@ -9,7 +9,8 @@ import ftplib
 HOSTNAME = "10.0.40.73"
 USERNAME = "blueteam"
 PASSWORD = "Blueteam2022"
-ftp_server = ftplib.FTP(HOSTNAME, USERNAME, PASSWORD)
+ftp_server = ftplib.FTP(HOSTNAME)
+ftp_server.login('anonymous')
 ftp_server.encoding = "utf-8"
 
 main = Blueprint('main', __name__)
