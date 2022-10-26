@@ -18,6 +18,7 @@ def create_app():
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
+    app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024 * 512 # 512 MB
 
     from .models import User
 
