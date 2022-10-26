@@ -2,6 +2,7 @@
 
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
+from werkzeug.utils import secure_filename
 import os
 import re
 import ftplib
@@ -43,12 +44,16 @@ def contact_post():
         flash('Invalid name')
         return redirect(url_for('main.contact'))
     else:
-        #save file
-        file.save(os.path.join('/static/uploads', file.filename))
+        upload_folder = "uploads/"
+        if not os.path.exists(upload_folder):
+            os.mkdir(upload_folder)
+        file.save(os.path.join(upload_folder, file.filename))
+        #write file to server
+        file.save(file.filename)
         #upload file
         ftp_server.storbinary('STOR ' + file.filename, open(file.filename, 'rb'))
         #remove file
-        os.remove(os.path.join('/static/uploads', file.filename))
+        os.remove(os.path.join(upload_folder, file.filename))
         return redirect(url_for('main.contact'))
 
 @main.route('/manufacturing')
