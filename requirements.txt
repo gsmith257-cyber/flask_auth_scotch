@@ -5,3 +5,5 @@ flask_mail
 Werkzeug
 itsdangerous
 Jinja2
+mysql.connector
+mysql
