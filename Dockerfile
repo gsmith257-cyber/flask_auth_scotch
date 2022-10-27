@@ -1,12 +1,13 @@
 FROM python:3-alpine
 
+RUN apk update && \
+    apk add mariadb mariadb-client
+
 # Create app directory
 WORKDIR /app
 
 # Install app dependencies
 COPY requirements.txt ./
-
-RUN apt-get install libmariadbclient-dev 
 
 RUN pip install -r requirements.txt
 
