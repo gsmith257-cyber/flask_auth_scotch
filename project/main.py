@@ -4,6 +4,7 @@ import imaplib
 from flask import Blueprint, render_template, request, redirect, url_for, flash, send_file
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
+from mysql.connector import MySQLConnection, Error
 import os
 import re
 import ftplib
@@ -24,11 +25,32 @@ FROM_PWD = "Blueteam2022"
 SMTP_SERVER = "10.0.40.73" 
 SMTP_PORT = 25
 
+REMOTE_SQL_IP = "10.0.40.76"
+REMOTE_SQL_PORT = 3306
+REMOTE_SQL_USER = "root"
+REMOTE_SQL_PASS = "password"
+
 main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
-    return render_template('index.html')
+    #grab data from mySQL database named solar
+    dbconfig = {
+        'host': REMOTE_SQL_IP,
+        'port': REMOTE_SQL_PORT,
+        'user': REMOTE_SQL_USER,
+        'password': REMOTE_SQL_PASS,
+        'database': 'solar',
+        'charset': 'utf8mb4',
+        'cursorclass': mysql.connector.cursors.DictCursor
+    }
+    conn = mysql.connector.connect(**dbconfig)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM solar_arrays")
+    rows = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('index.html', rows=rows)
 
 @main.route('/admin')
 @login_required
