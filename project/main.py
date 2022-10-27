@@ -12,8 +12,8 @@ import imaplib
 import email
 
 HOSTNAME = "10.0.40.73"
-USERNAME = "green01"
-PASSWORD = ""
+USERNAME = "blueteam"
+PASSWORD = "blueteam"
 ftp_server = ftplib.FTP(HOSTNAME, USERNAME, PASSWORD)
 ftp_server.encoding = "utf-8"
 
