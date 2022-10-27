@@ -1,7 +1,7 @@
 FROM python:3-alpine
 
 RUN apk update && \
-    apk add mariadb mariadb-client
+    apk add mariadb mariadb-dev
 
 # Create app directory
 WORKDIR /app
