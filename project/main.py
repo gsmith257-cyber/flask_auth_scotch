@@ -77,8 +77,6 @@ def profile():
                         flash('Subject : ' + email_subject + '\n')
                         emails.append(msg)
         #get list of files
-        ftp_server.cwd("/")
-        #get list of files
         files = []
         allThings = ftp_server.nlst()
         for file in allThings:
@@ -109,7 +107,6 @@ def download(filename):
         if re.search(r'(\.\.)|[/\\]', filename):
             flash('Invalid name')
             return redirect(url_for('main.admin'))
-        ftp_server.cwd('/')
         files = ftp_server.nlst()
         if filename in files:
             if not os.path.exists(upload_folder):
