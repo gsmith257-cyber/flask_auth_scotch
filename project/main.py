@@ -40,8 +40,7 @@ def index():
         'port': REMOTE_SQL_PORT,
         'user': REMOTE_SQL_USER,
         'password': REMOTE_SQL_PASS,
-        'database': 'solar',
-        'charset': 'utf8mb4',
+        'database': 'solar'
     }
     conn = mysql.connector.connect(**dbconfig)
     cursor = conn.cursor()
