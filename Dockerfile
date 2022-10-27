@@ -6,11 +6,12 @@ WORKDIR /app
 # Install app dependencies
 COPY requirements.txt ./
 
+RUN sudo apt-get install libmariadbclient-dev 
+
 RUN pip install -r requirements.txt
 
 RUN export FLASK_APP=project
 
-RUN sudo apt-get install libmariadbclient-dev 
 
 # Bundle app source
 COPY . .
