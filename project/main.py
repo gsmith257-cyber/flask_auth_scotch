@@ -4,7 +4,7 @@ import imaplib
 from flask import Blueprint, render_template, request, redirect, url_for, flash, send_file
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
-from mysql.connector import MySQLConnection, Error
+import mysql.connector
 import os
 import re
 import ftplib

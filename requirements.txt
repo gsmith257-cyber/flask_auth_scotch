@@ -6,4 +6,5 @@ Werkzeug
 itsdangerous
 Jinja2
 mysql-connector-python
+mysql-connector
 mysql
