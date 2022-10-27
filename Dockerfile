@@ -3,7 +3,7 @@ FROM python:3-alpine
 RUN apk update && \
     apk add mariadb mariadb-dev && \
     apk add mariadb-connector-c && \
-    mariadb-client
+    apk add mariadb-client
 
 # Create app directory
 WORKDIR /app
