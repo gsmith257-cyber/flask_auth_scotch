@@ -4,7 +4,7 @@ import imaplib
 from flask import Blueprint, render_template, request, redirect, url_for, flash, send_file
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
-import mysql.connector
+import mariadb
 import os
 import re
 import ftplib
@@ -35,15 +35,14 @@ main = Blueprint('main', __name__)
 @main.route('/')
 def index():
     #grab data from mySQL database named solar
-    dbconfig = {
-        'host': REMOTE_SQL_IP,
-        'port': REMOTE_SQL_PORT,
-        'user': REMOTE_SQL_USER,
-        'password': REMOTE_SQL_PASS,
-        'database': 'solar',
-        'charset': 'utf8mb4_0900_ai_ci',
-    }
-    conn = mysql.connector.connect(**dbconfig)
+    conn = mariadb.connect(
+        user=REMOTE_SQL_USER,
+        password=REMOTE_SQL_PASS,
+        host=REMOTE_SQL_IP,
+        port=REMOTE_SQL_PORT,
+        database="solar"
+
+    )
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM solar_arrays")
     rows = cursor.fetchall()

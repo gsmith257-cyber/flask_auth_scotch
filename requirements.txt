@@ -5,5 +5,4 @@ flask_mail
 Werkzeug
 itsdangerous
 Jinja2
-mysql-connector-python==8.0.29
-mysql-connector
+mariadb
