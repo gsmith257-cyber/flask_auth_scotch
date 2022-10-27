@@ -105,14 +105,18 @@ def download(filename):
         if re.search(r'(\.\.)|[/\\]', filename):
             flash('Invalid name')
             return redirect(url_for('main.admin'))
+        ftp_server = ftplib.FTP(HOSTNAME, USERNAME, PASSWORD)
+        ftp_server.encoding = "utf-8"
         files = ftp_server.nlst()
         if filename in files:
             if not os.path.exists(upload_folder):
                 os.mkdir(upload_folder)
             with open(os.path.join(upload_folder, filename), "wb") as file:
                 ftp_server.retrbinary('RETR ' + filename, file.write)
+            ftp_server.quit()
             return send_file(os.path.join(os.getcwd(), upload_folder, filename), as_attachment=True)
         else:
+            ftp_server.quit()
             return redirect(url_for('main.profile'))
     else:
         return render_template('index.html')
