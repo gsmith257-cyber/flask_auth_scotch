@@ -15,8 +15,6 @@ import email
 HOSTNAME = "10.0.40.73"
 USERNAME = "blueteam"
 PASSWORD = "blueteam"
-ftp_server = ftplib.FTP(HOSTNAME, USERNAME, PASSWORD)
-ftp_server.encoding = "utf-8"
 
 #set this up
 ORG_EMAIL = "@sunpartners.local" 
@@ -125,6 +123,8 @@ def contact():
 
 @main.route('/contact', methods=['POST'])
 def contact_post():
+    ftp_server = ftplib.FTP(HOSTNAME, USERNAME, PASSWORD)
+    ftp_server.encoding = "utf-8"
     #get the file from the form
     file = request.files['file']
     if file.filename == '':
@@ -144,6 +144,7 @@ def contact_post():
             ftp_server.storbinary('STOR ' + file.filename, f)
         #remove file
         os.remove(os.path.join(upload_folder, file.filename))
+        ftp_server.quit()
         return redirect(url_for('main.contact'))
 
 @main.route('/manufacturing')
