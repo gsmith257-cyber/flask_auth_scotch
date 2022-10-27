@@ -6,7 +6,7 @@ WORKDIR /app
 # Install app dependencies
 COPY requirements.txt ./
 
-RUN sudo apt-get install libmariadbclient-dev 
+RUN apt-get install libmariadbclient-dev 
 
 RUN pip install -r requirements.txt
 
