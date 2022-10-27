@@ -75,6 +75,8 @@ def profile():
                         flash('Subject : ' + email_subject + '\n')
                         emails.append(msg)
         #get list of files
+        ftp_server = ftplib.FTP(HOSTNAME, USERNAME, PASSWORD)
+        ftp_server.encoding = "utf-8"
         files = []
         allThings = ftp_server.nlst()
         for file in allThings:
@@ -83,6 +85,7 @@ def profile():
                 ftp_server.cwd('../')
             except:
                 files += [file]
+        ftp_server.quit()
         #get emails from smtp server
 
         return render_template('admin.html', name=current_user.name, files=files, emails=emails)
