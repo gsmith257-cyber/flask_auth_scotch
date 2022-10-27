@@ -42,7 +42,6 @@ def index():
         'password': REMOTE_SQL_PASS,
         'database': 'solar',
         'charset': 'utf8mb4',
-        'cursorclass': mysql.connector.cursors.DictCursor
     }
     conn = mysql.connector.connect(**dbconfig)
     cursor = conn.cursor()
