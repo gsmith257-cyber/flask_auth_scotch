@@ -30,7 +30,7 @@ REMOTE_SQL_PASS = "password"
 
 main = Blueprint('main', __name__)
 
-mail = Mail(current_app)
+mail = Mail(current_app._get_current_object())
 
 @main.route('/')
 def index():
