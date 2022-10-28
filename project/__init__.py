@@ -15,6 +15,11 @@ def create_app():
 
     db.init_app(app)
     
+    app.config['MAIL_SERVER']='10.0.40.73'
+    app.config['MAIL_PORT'] = 25
+    app.config['MAIL_USERNAME'] = 'admin@sunpartners.local'
+    app.config['MAIL_PASSWORD'] = 'Blueteam2022'
+
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
