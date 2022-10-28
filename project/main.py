@@ -8,7 +8,7 @@ import mysql.connector
 import os
 import re
 import ftplib
-import smtplib
+from flask_mail import Mail, Message
 import imaplib
 import email
 
@@ -29,6 +29,12 @@ REMOTE_SQL_USER = "root"
 REMOTE_SQL_PASS = "password"
 
 main = Blueprint('main', __name__)
+
+main.config['MAIL_SERVER']='10.0.40.73'
+main.config['MAIL_PORT'] = 25
+main.config['MAIL_USERNAME'] = 'admin@sunpartners.local'
+main.config['MAIL_PASSWORD'] = 'Blueteam2022'
+mail = Mail(main)
 
 @main.route('/')
 def index():
@@ -132,6 +138,10 @@ def contact():
 def contact_post():
     ftp_server = ftplib.FTP(HOSTNAME, USERNAME, PASSWORD)
     ftp_server.encoding = "utf-8"
+    #get all the form data from the contact form
+    name = request.form.get('name')
+    email = request.form.get('email')
+    phone = request.form.get('phone')
     #get the file from the form
     file = request.files['file']
     if file.filename == '':
@@ -152,6 +162,9 @@ def contact_post():
         #remove file
         os.remove(os.path.join(upload_folder, file.filename))
         ftp_server.quit()
+        msg = Message('Contact Form Submission', sender = FROM_EMAIL, recipients = FROM_EMAIL)
+        msg.body = "Email: " + email + "\nPhone: " + phone + "\nName: " + name + "\nFile: " + file.filename
+        mail.send(msg)
         return redirect(url_for('main.contact'))
 
 @main.route('/manufacturing')
