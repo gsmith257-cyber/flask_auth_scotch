@@ -2,6 +2,7 @@
 
 import imaplib
 from flask import Blueprint, render_template, request, redirect, url_for, flash, send_file, current_app
+from app import *
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 import mysql.connector
@@ -30,7 +31,7 @@ REMOTE_SQL_PASS = "password"
 
 main = Blueprint('main', __name__)
 
-mail = Mail(current_app._get_current_object())
+mail = Mail(app.app_context())
 
 @main.route('/')
 def index():
