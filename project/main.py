@@ -2,7 +2,6 @@
 
 import imaplib
 from flask import Blueprint, render_template, request, redirect, url_for, flash, send_file
-from app import *
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 import mysql.connector
