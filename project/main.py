@@ -30,10 +30,6 @@ REMOTE_SQL_PASS = "password"
 
 main = Blueprint('main', __name__)
 
-current_app.config['MAIL_SERVER']='10.0.40.73'
-current_app.config['MAIL_PORT'] = 25
-current_app.config['MAIL_USERNAME'] = 'admin@sunpartners.local'
-current_app.config['MAIL_PASSWORD'] = 'Blueteam2022'
 mail = Mail(current_app)
 
 @main.route('/')
