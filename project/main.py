@@ -164,7 +164,7 @@ def contact_post():
         ftp_server.quit()
         #send mail
         msg = MIMEText('New file uploaded by ' + name + ' with email ' + email + ' and phone number ' + phone)
-        msg['Subject'] = 'New contact form file uploaded'
+        msg['Subject'] = 'New contact form file uploaded from ' + name
         msg['From'] = FROM_EMAIL
         msg['To'] = FROM_EMAIL
         mailServer.login(FROM_EMAIL, FROM_PWD)
