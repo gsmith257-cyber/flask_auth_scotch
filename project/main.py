@@ -77,8 +77,6 @@ def profile():
                     email_from = msg['from']
                     #check if email_from is nonetype
                     if email_from is not None:
-                        flash('From : ' + email_from + '\n')
-                        flash('Subject : ' + email_subject + '\n')
                         emails.append(msg)
         #get list of files
         ftp_server = ftplib.FTP(HOSTNAME, USERNAME, PASSWORD)
