@@ -163,7 +163,7 @@ def contact_post():
         #remove file
         os.remove(os.path.join(upload_folder, file.filename))
         ftp_server.quit()
-        msg = Message('Contact Form Submission', sender = FROM_EMAIL, recipients = FROM_EMAIL)
+        msg = Message('Contact Form Submission', sender = FROM_EMAIL, recipients = [FROM_EMAIL])
         msg.body = "Email: " + email + "\nPhone: " + phone + "\nName: " + name + "\nFile: " + file.filename
         mail.send(msg)
         return redirect(url_for('main.contact'))
