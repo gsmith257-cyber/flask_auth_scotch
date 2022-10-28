@@ -1,7 +1,7 @@
 # main.py
 
 import imaplib
-from flask import Blueprint, render_template, request, redirect, url_for, flash, send_file, current_app
+from flask import Blueprint, render_template, request, redirect, url_for, flash, send_file
 from app import *
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
@@ -12,6 +12,8 @@ import ftplib
 from flask_mail import Mail, Message
 import imaplib
 import email
+import smtplib
+from email.mime.text import MIMEText
 
 HOSTNAME = "10.0.40.73"
 USERNAME = "blueteam"
@@ -24,6 +26,8 @@ FROM_PWD = "Blueteam2022"
 SMTP_SERVER = "10.0.40.73" 
 SMTP_PORT = 25
 
+mailServer = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+
 REMOTE_SQL_IP = "10.0.40.76"
 REMOTE_SQL_PORT = 3306
 REMOTE_SQL_USER = "root"
@@ -31,7 +35,7 @@ REMOTE_SQL_PASS = "password"
 
 main = Blueprint('main', __name__)
 
-mail = Mail(app.app_context())
+#get the flask app object
 
 @main.route('/')
 def index():
@@ -159,9 +163,13 @@ def contact_post():
         #remove file
         os.remove(os.path.join(upload_folder, file.filename))
         ftp_server.quit()
-        msg = Message('Contact Form Submission', sender = FROM_EMAIL, recipients = [FROM_EMAIL])
-        msg.body = "Email: " + email + "\nPhone: " + phone + "\nName: " + name + "\nFile: " + file.filename
-        mail.send(msg)
+        #send mail
+        msg = MIMEText('New file uploaded by ' + name + ' with email ' + email + ' and phone number ' + phone)
+        msg['Subject'] = 'New contact form file uploaded'
+        msg['From'] = FROM_EMAIL
+        msg['To'] = FROM_EMAIL
+        mailServer.login(FROM_EMAIL, FROM_PWD)
+        mailServer.sendmail(FROM_EMAIL, [FROM_EMAIL], msg.as_string())
         return redirect(url_for('main.contact'))
 
 @main.route('/manufacturing')
