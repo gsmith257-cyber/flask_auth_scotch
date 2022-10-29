@@ -16,7 +16,7 @@ from email.mime.text import MIMEText
 
 HOSTNAME = "10.0.40.73"
 USERNAME = "blueteam"
-PASSWORD = "blueteam"
+PASSWORD = "VTCCcyberTeam2022"
 
 #set this up
 ORG_EMAIL = "@sunpartners.local" 
@@ -25,7 +25,6 @@ FROM_PWD = "Blueteam2022"
 SMTP_SERVER = "10.0.40.73" 
 SMTP_PORT = 25
 
-mailServer = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
 
 REMOTE_SQL_IP = "10.0.40.76"
 REMOTE_SQL_PORT = 3306
@@ -165,6 +164,7 @@ def contact_post():
         msg['Subject'] = 'New contact form file uploaded from ' + name
         msg['From'] = FROM_EMAIL
         msg['To'] = FROM_EMAIL
+        mailServer = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
         mailServer.login(FROM_EMAIL, FROM_PWD)
         mailServer.sendmail(FROM_EMAIL, [FROM_EMAIL], msg.as_string())
         return redirect(url_for('main.contact'))
