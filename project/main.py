@@ -16,7 +16,7 @@ from email.mime.text import MIMEText
 
 HOSTNAME = "10.0.40.73"
 USERNAME = "blueteam"
-PASSWORD = "blueteam"
+PASSWORD = "VTCCcyberTeam2022"
 
 #set this up
 ORG_EMAIL = "@sunpartners.local" 
@@ -81,6 +81,7 @@ def profile():
         #get list of files
         ftp_server = ftplib.FTP(HOSTNAME, USERNAME, PASSWORD)
         ftp_server.encoding = "utf-8"
+        ftp_server.set_pasv(False)
         files = []
         allThings = ftp_server.nlst()
         for file in allThings:
