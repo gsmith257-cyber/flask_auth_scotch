@@ -80,7 +80,6 @@ def profile():
         #get list of files
         ftp_server = ftplib.FTP(HOSTNAME, USERNAME, PASSWORD)
         ftp_server.encoding = "utf-8"
-        ftp_server.set_pasv(False)
         files = []
         allThings = ftp_server.nlst()
         for file in allThings:
